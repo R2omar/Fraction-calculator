@@ -116,7 +116,7 @@ int main() {
     string input;
 
     //make the user enter the operation in a specific format
-    cout << "Enter operation in the format 'num1 operation num2': ";
+    cout << "\"Welcome To Our Calculator\"\nEnter your operation in the format 'num1 operation num2': ";
     getline(cin, input);
 
     // Defining regular expression patterns to control the input
@@ -124,13 +124,13 @@ int main() {
     regex pattern2("([+-]?\\d+) ([+\\-*/]) ([+-]?\\d+)/(\\d+)");
     regex pattern3("([+-]?\\d+)/(\\d+) ([+\\-*/]) ([+-]?\\d+)");
     regex pattern4("([+-]?\\d+) ([+\\-*/]) ([+-]?\\d+)");
-    smatch matches;
+    smatch parts;
 
     // Loop to handle input validation
     while (true) {
             //Handling invalid pattern
-        if (!regex_match(input, matches, pattern1) && !regex_match(input, matches, pattern2) &&
-            !regex_match(input, matches, pattern3) && !regex_match(input, matches, pattern4)) {
+        if (!regex_match(input, parts, pattern1) && !regex_match(input, parts, pattern2) &&
+            !regex_match(input, parts, pattern3) && !regex_match(input, parts, pattern4)) {
             cin.clear();
             cout << "Invalid Input. Please enter your operation in this format 'num1 operation num2': ";
             getline(cin, input);
@@ -138,33 +138,33 @@ int main() {
         }
         else {
             // control the input based on the matched pattern
-            if (regex_match(input, matches, pattern1)) {
-                num1 = stoi(matches[1]);
-                den1 = stoi(matches[2]);
-                operation = matches[3].str()[0];
-                num2 = stoi(matches[4]);
-                den2 = stoi(matches[5]);
+            if (regex_match(input, parts, pattern1)) {
+                num1 = stoi(parts[1]); //to make variable "num1" equal part 1 int the pattern that numenator for the first number
+                den1 = stoi(parts[2]); //to make variable "den1" equal part 2 int the pattern that denominator for the first number
+                operation = parts[3].str()[0]; //to make variable "operation" equal part 3 int the pattern that is the operation
+                num2 = stoi(parts[4]); //to make variable "num2" equal part 4 int the pattern that numenator for the second number
+                den2 = stoi(parts[5]);//to make variable "den2" equal part 5 int the pattern that denominator for the second number
             }
-            else if (regex_match(input, matches, pattern2)) {
-                num1 = stoi(matches[1]);
-                den1 = 1;
-                operation = matches[2].str()[0];
-                num2 = stoi(matches[3]);
-                den2 = stoi(matches[4]);
+            else if (regex_match(input, parts, pattern2)) {
+                num1 = stoi(parts[1]);//to make variable "num1" equal part 1 int the pattern that numenator for the first number
+                den1 = 1;//set variable "den1" to 1 because this pattern the first number in it doesn't have denominator
+                operation = parts[2].str()[0];//to make variable "operation" equal part 3 int the pattern that is the operation
+                num2 = stoi(parts[3]);//to make variable "num2" equal part 4 int the pattern that numenator for the second number
+                den2 = stoi(parts[4]);//to make variable "den2" equal part 5 int the pattern that denominator for the second number
             }
-            else if (regex_match(input, matches, pattern3)) {
-                num1 = stoi(matches[1]);
-                den1 = stoi(matches[2]);
-                operation = matches[3].str()[0];
-                num2 = stoi(matches[4]);
-                den2 = 1;
+            else if (regex_match(input, parts, pattern3)) {
+                num1 = stoi(parts[1]);//to make variable "num1" equal part 1 int the pattern that numenator for the first number
+                den1 = stoi(parts[2]);//to make variable "den1" equal part 2 int the pattern that denominator for the first number
+                operation = parts[3].str()[0];//to make variable "operation" equal part 3 int the pattern that is the operation
+                num2 = stoi(parts[4]);//to make variable "num2" equal part 4 int the pattern that numenator for the second number
+                den2 = 1;//set variable "den2" to 1 because this pattern the second number in it doesn't have denominator
             }
-            else if (regex_match(input, matches, pattern4)) {
-                num1 = stoi(matches[1]);
-                den1 = 1;
-                operation = matches[2].str()[0];
-                num2 = stoi(matches[3]);
-                den2 = 1;
+            else if (regex_match(input, parts, pattern4)) {
+                num1 = stoi(parts[1]);//to make variable "num1" equal part 1 int the pattern that numenator for the first number
+                den1 = 1;//set variable "den1" to 1 because this pattern the first number in it doesn't have denominator
+                operation = parts[2].str()[0];//to make variable "operation" equal part 3 int the pattern that is the operation
+                num2 = stoi(parts[3]);//to make variable "num2" equal part 4 int the pattern that numenator for the second number
+                den2 = 1;//set variable "den2" to 1 because this pattern the second number in it doesn't have denominator
             }
 
             // Handling division by zero
